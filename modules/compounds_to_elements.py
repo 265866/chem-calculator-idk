@@ -1,8 +1,5 @@
 """This function converts element compounds to a list of elements."""
 def compounds_to_elements(compound):
-    from collections import Counter
-    #need to make work with more than one digit number
-    #need to check if any keys are a non letter
     """
     returns a dict with list of elements in compounds and their count
     e.g. H2O -> {'H': 2, 'O': 1}
@@ -86,3 +83,4 @@ def compounds_to_elements(compound):
     if len(list(result_2.keys())) > len(list(result.keys())):
         return result_2
     return result
+    
