@@ -168,21 +168,27 @@ def grams_to_moles():
     print_dict[2] = ['', f'{str(print_dict_molar_mass)}g {compound}']
 
     print('Table Setup:')
-    for i in range(1, len(print_dict) + 1):
-        for j in range(len(print_dict[i])):
-            if len(print_dict[i][j]) < len(print_dict[i][j - 1]):
-                print_dict[i][j] = (
-                    ' ' * (len(print_dict[i][j - 1])
-                    - len(print_dict[i][j])) + print_dict[i][j]
-                )
-            elif len(print_dict[i][j]) > len(print_dict[i][j - 1]):
-                print_dict[i][j - 1] = (
-                    ' ' * (len(print_dict[i][j])
-                    - len(print_dict[i][j - 1])) + print_dict[i][j - 1]
-                )
+    mx_length_per_column = {}
+    for key in print_dict:
+        for data in print_dict[key]:
+            if print_dict[key].index(data) not in mx_length_per_column:
+                mx_length_per_column[print_dict[key].index(data)] = len(data)
+            elif len(data)>mx_length_per_column[print_dict[key].index(data)]:
+                mx_length_per_column[print_dict[key].index(data)] = len(data)
 
-    for _, value in print_dict.items():
-        print(' | '.join(value))
+
+    column_wise_width = mx_length_per_column
+    for key in print_dict:
+        line = ''
+        for data in print_dict[key]:
+            temp_variable = data
+            if len(temp_variable)<column_wise_width[print_dict[key].index(data)]:
+                temp_variable = data + ' '*(column_wise_width[print_dict[key].index(data)] - len(temp_variable))
+            else:
+                temp_variable = data
+            line += '| '+ temp_variable+' '
+        line = line.lstrip()+'|'
+        print(line)
 
     print(f'\nFinal Answer: {str(grams / molar_mass)} mol {compound}')
     print(f'Final Answer (sci notation): {grams/molar_mass:.7e} mol {compound}')

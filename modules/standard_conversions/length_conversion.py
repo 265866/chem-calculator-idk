@@ -112,85 +112,96 @@ def length_conversion():
     elif base_unit == 'in':
         in_m = value * 0.0254
 
-    d = {
+    print_dict = {
         1: [f'{value} {base_unit}', '1 m'],
     }
 
     if target_unit != 'm':
         if target_unit == 'mm':
-            d[1] = [f'{value} {base_unit}', '1 m', f'1000 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'1000 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}', '1 m']
         if target_unit == 'km':
-            d[1] = [f'{value} {base_unit}', '1 m', f'0.001 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'0.001 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'0.001 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'0.001 {base_unit}', '1 m']
         if target_unit == 'dm':
-            d[1] = [f'{value} {base_unit}', '1 m', f'10 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'10 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'10 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'10 {base_unit}', '1 m']
         if target_unit == 'cm':
-            d[1] = [f'{value} {base_unit}', '1 m', f'100 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'100 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'100 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'100 {base_unit}', '1 m']
         if target_unit == 'um':
-            d[1] = [f'{value} {base_unit}', '1 m', f'1000000 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'1000000 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'1000000 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000 {base_unit}', '1 m']
         if target_unit == 'nm':
-            d[1] = [f'{value} {base_unit}', '1 m', f'1000000000 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'1000000000 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'1000000000 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000000 {base_unit}', '1 m']
         if target_unit == 'mi':
-            d[1] = [f'{value} {base_unit}', '1 m', f'0.000621371 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'0.000621371 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'0.000621371 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'0.000621371 {base_unit}', '1 m']
         if target_unit == 'yd':
-            d[1] = [f'{value} {base_unit}', '1 m', f'1.09361 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'1.09361 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'1.09361 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1.09361 {base_unit}', '1 m']
         if target_unit == 'ft':
-            d[1] = [f'{value} {base_unit}', '1 m', f'3.28084 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'3.28084 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'3.28084 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'3.28084 {base_unit}', '1 m']
         if target_unit == 'in':
-            d[1] = [f'{value} {base_unit}', '1 m', f'39.3701 {target_unit}']
-            d[2] = [' ' * len(f'{value} {base_unit}'), f'39.3701 {base_unit}', '1 m']
+            print_dict[1] = [f'{value} {base_unit}', '1 m', f'39.3701 {target_unit}']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'39.3701 {base_unit}', '1 m']
     if target_unit == 'm':
         if base_unit == 'mm':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '1000 mm']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '1000 mm']
         if base_unit == 'km':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '0.001 km']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '0.001 km']
         if base_unit == 'dm':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '10 dm']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '10 dm']
         if base_unit == 'cm':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '100 cm']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '100 cm']
         if base_unit == 'um':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '1000000 um']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '1000000 um']
         if base_unit == 'nm':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '1000000000 nm']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '1000000000 nm']
         if base_unit == 'mi':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '0.000621371 mi']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '0.000621371 mi']
         if base_unit == 'yd':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '1.09361 yd']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '1.09361 yd']
         if base_unit == 'ft':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '3.28084 ft']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '3.28084 ft']
         if base_unit == 'in':
-            d[1] = [f'{value} {base_unit}', '1 m']
-            d[2] = [' ' * len(f'{value} {base_unit}'), '39.3701 in']
+            print_dict[1] = [f'{value} {base_unit}', '1 m']
+            print_dict[2] = [' ' * len(f'{value} {base_unit}'), '39.3701 in']
 
-    #adjust spacing
-    for i in range(1, len(d) + 1):
-        for j in range(len(d[i])):
-            if len(d[i][j]) < len(d[i][j - 1]):
-                d[i][j] = ' ' * (len(d[i][j - 1]) - len(d[i][j])) + d[i][j]
-            elif len(d[i][j]) > len(d[i][j - 1]):
-                d[i][j - 1] = ' ' * (len(d[i][j]) - len(d[i][j - 1])) + d[i][j - 1]
-
-    #print conversion
     print("\033[H\033[J", end="")
-    for _, value in d.items():
-        print(' | '.join(value))
+    print('Table Setup:')
+    mx_length_per_column = {}
+    for key in print_dict:
+        for data in print_dict[key]:
+            if print_dict[key].index(data) not in mx_length_per_column:
+                mx_length_per_column[print_dict[key].index(data)] = len(data)
+            elif len(data)>mx_length_per_column[print_dict[key].index(data)]:
+                mx_length_per_column[print_dict[key].index(data)] = len(data)
+
+
+    column_wise_width = mx_length_per_column
+    for key in print_dict:
+        line = ''
+        for data in print_dict[key]:
+            temp_variable = data
+            if len(temp_variable)<column_wise_width[print_dict[key].index(data)]:
+                temp_variable = data + ' '*(column_wise_width[print_dict[key].index(data)] - len(temp_variable))
+            else:
+                temp_variable = data
+            line += '| '+ temp_variable+' '
+        line = line.lstrip()+'|'
+        print(line)
     print('\n')
     #print final conversion
     print('Final Answer:')
