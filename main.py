@@ -8,7 +8,7 @@ from modules.mole_conversions.moles_to_grams import moles_to_grams
 from modules.mole_conversions.moles_to_particles import moles_to_particles
 from modules.mole_conversions.particles_to_moles import particles_to_moles
 from modules.mole_conversions.particles_to_grams import particles_to_grams
-#from modules.mole_conversions.grams_to_particles import grams_to_particles
+from modules.mole_conversions.grams_to_particles import grams_to_particles
 from modules.return_sigfigs import find_sigfigs as get_sigfigs
 from modules.compounds_to_elements import compounds_to_elements as cte
 

@@ -54,4 +54,3 @@ def particles_to_moles():
     print(f'Remember to adjust for sigfigs, your input was {inp} particles of {compound}')
     input('Press enter to continue...')
     return
-    

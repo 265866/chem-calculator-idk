@@ -1,17 +1,18 @@
-"""Converts particles to grams."""
-def particles_to_grams():
-    """Particles to Grams Function"""
+"""Converts grams to particles."""
+def grams_to_particles():
+    """Grams to particles function"""
+
     from ..compounds_to_elements import compounds_to_elements as cte
     print("\033[H\033[J", end="")
     print('Particles to Grams')
     compound = input('Enter the compound: ')
     while True:
         try:
-            inp = input('Enter the particles (par): ')
+            inp = input('Enter the mass (g): ')
             if '*10^' in inp:
-                particles = float(inp.split('*10^')[0]) * 10 ** float(inp.split('*10^')[1])
+                grams = float(inp.split('*10^')[0]) * 10 ** float(inp.split('*10^')[1])
             else:
-                particles = float(inp)
+                grams = float(inp)
             break
         except ValueError:
             print('Invalid input')
@@ -153,15 +154,14 @@ def particles_to_grams():
         print(f'{str(element)}: {str(compound_dict[element])} * {str(periodic_table[element])} = {str(compound_dict[element] * periodic_table[element])}')
     print(f'Molar Mass: {str(molar_mass)}\n')
 
-    if len(str(particles)) > 6:
-        print_dict_particles = f'{particles:.6e}'
+    if len(str(grams)) > 6:
+        print_dict_grams = f'{grams:.6e}'
     else:
-        print_dict_particles = str(particles)
-    
-    print_dict = {}
-    print_dict[1] = [f'{print_dict_particles} par {compound}', f'1 mol {compound}', f'{molar_mass} g {compound}']
-    print_dict[2] = ['', f'6.022*10^23 par {compound}', f'1 mol {compound}']
+        print_dict_grams = str(grams)
 
+    print_dict = {}
+    print_dict[1] = [f'{print_dict_grams} g {compound}', f'1 mol {compound}', f'6.022*10^23 par {compound}']
+    print_dict[2] = ['', f'{molar_mass} g {compound}', f'1 mol {compound}']
     print('Table Setup:')
     mx_length_per_column = {}
     for key in print_dict:
@@ -185,7 +185,7 @@ def particles_to_grams():
         line = line.lstrip()+'|'
         print(line)
 
-    ans = particles / (6.022 * 10**23) * molar_mass
+    ans = grams / molar_mass * 6.022 * 10**23
     print(f'\nFinal Answer: {str(ans)} g {compound}')
     print(f'Final Answer (sci notation): {ans:.6e} g {compound}')
 
