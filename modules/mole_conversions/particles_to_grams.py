@@ -1,17 +1,17 @@
-"""Converts moles to grams."""
-def moles_to_grams():
-    """Moles to Grams Function"""
+"""Converts particles to grams."""
+def particles_to_moles():
+    """Particles to Grams Function"""
     from ..compounds_to_elements import compounds_to_elements as cte
     print("\033[H\033[J", end="")
-    print('Moles to Grams')
+    print('Particles to Grams')
     compound = input('Enter the compound: ')
     while True:
         try:
-            inp = input('Enter the moles (mol): ')
+            inp = input('Enter the particles (par): ')
             if '*10^' in inp:
-                moles = float(inp.split('*10^')[0]) * 10 ** float(inp.split('*10^')[1])
+                particles = float(inp.split('*10^')[0]) * 10 ** float(inp.split('*10^')[1])
             else:
-                moles = float(inp)
+                particles = float(inp)
             break
         except ValueError:
             print('Invalid input')
@@ -153,20 +153,16 @@ def moles_to_grams():
         print(f'{str(element)}: {str(compound_dict[element])} * {str(periodic_table[element])} = {str(compound_dict[element] * periodic_table[element])}')
     print(f'Molar Mass: {str(molar_mass)}\n')
 
-    if len(str(moles)) > 6:
-        print_dict_moles = f'{moles:.6e}'
+    if len(str(particles)) > 6:
+        print_dict_particles = f'{particles:.6e}'
     else:
-        print_dict_moles = str(moles)
-
-    if len(str(molar_mass)) > 6:
-        print_dict_molar_mass = f'{molar_mass:.6e}'
-    else:
-        print_dict_molar_mass = str(molar_mass)
-
+        print_dict_particles = str(particles)
+    
     print_dict = {}
-    print_dict[1] = [f'{str(print_dict_moles)} mol {str(compound)}', f'{str(print_dict_molar_mass)} g {str(compound)}']
-    print_dict[2] = ['', f'1 mol {str(compound)}']
+    print_dict[1] = [f'{print_dict_particles} par {compound}', f'1 mol {compound}', f'{molar_mass} g {compound}']
+    print_dict[2] = ['', f'6.022*10^23 par {compound}', f'1 mol {compound}']
 
+    print("\033[H\033[J", end="")
     print('Table Setup:')
     mx_length_per_column = {}
     for key in print_dict:
@@ -190,9 +186,9 @@ def moles_to_grams():
         line = line.lstrip()+'|'
         print(line)
 
-    print(f'\nFinal Answer: {str(moles * molar_mass)} g {str(compound)}')
-    print(f'Final Answer (sci notation): {moles*molar_mass:.7e} g {compound}')
+    print(f'\nFinal Answer: {str((particles / (6.022 * 10 ** 23))*molar_mass)} g {compound}')
+    print(f'Final Answer (sci notation): {str((particles / (6.022 * 10 ** 23))*molar_mass):.6e} g {compound}')
 
-    print(f'Remember to adjust for sigfigs, your input was {inp} mol of {compound}')
+    print(f'Remember to adjust for sigfigs, your input was {inp} particles of {compound}')
     input('Press enter to continue...')
     return
