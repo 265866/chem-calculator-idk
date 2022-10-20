@@ -186,8 +186,9 @@ def particles_to_grams():
         line = line.lstrip()+'|'
         print(line)
 
-    print(f'\nFinal Answer: {str((particles / (6.022 * 10 ** 23))*molar_mass)} g {compound}')
-    print(f'Final Answer (sci notation): {str((particles / (6.022 * 10 ** 23))*molar_mass:.6e):.6e} g {compound}')
+    ans = particles / (6.022 * 10**23) * molar_mass
+    print(f'\nFinal Answer: {str(ans)} g {compound}')
+    print(f'Final Answer (sci notation): {ans:.6e} g {compound}')
 
     print(f'Remember to adjust for sigfigs, your input was {inp} particles of {compound}')
     input('Press enter to continue...')
