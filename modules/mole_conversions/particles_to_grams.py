@@ -1,5 +1,5 @@
 """Converts particles to grams."""
-def particles_to_moles():
+def particles_to_grams():
     """Particles to Grams Function"""
     from ..compounds_to_elements import compounds_to_elements as cte
     print("\033[H\033[J", end="")
@@ -187,7 +187,7 @@ def particles_to_moles():
         print(line)
 
     print(f'\nFinal Answer: {str((particles / (6.022 * 10 ** 23))*molar_mass)} g {compound}')
-    print(f'Final Answer (sci notation): {str((particles / (6.022 * 10 ** 23))*molar_mass):.6e} g {compound}')
+    print(f'Final Answer (sci notation): {str((particles / (6.022 * 10 ** 23))*molar_mass:.6e):.6e} g {compound}')
 
     print(f'Remember to adjust for sigfigs, your input was {inp} particles of {compound}')
     input('Press enter to continue...')
