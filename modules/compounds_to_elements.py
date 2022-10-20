@@ -5,6 +5,9 @@ def compounds_to_elements(compound):
     e.g. H2O -> {'H': 2, 'O': 1}
     e.g. (NH4)2SO4 -> {'N': 2, 'H': 8, 'S': 1, 'O': 4}
     """
+    from collections import Counter
+    #need to make work with more than one digit number
+    #need to check if any keys are a non letter
 
     init_sub_list = [[]]
     for iter_ in compound:
@@ -83,4 +86,3 @@ def compounds_to_elements(compound):
     if len(list(result_2.keys())) > len(list(result.keys())):
         return result_2
     return result
-    
