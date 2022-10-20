@@ -104,7 +104,7 @@ def mass_conversion():
     print("\033[H\033[J", end="")
 
     for _, value in print_dict.items():
-        print(' '.join(value))
+        print(' | '.join(value))
 
     print('\n')
 

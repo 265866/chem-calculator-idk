@@ -84,5 +84,11 @@ def compounds_to_elements(compound):
 
     result_2 = elements_dict
     if len(list(result_2.keys())) > len(list(result.keys())):
+        for key in list(result_2.keys()):
+            if not key.isalpha():
+                return -1
         return result_2
+    for key in list(result.keys()):
+        if not key.isalpha():
+            return -1
     return result
