@@ -7,7 +7,9 @@ def mass_conversion():
     print('2. Gram (g)')
     print('3. Milligram (mg)')
     print('4. Microgram (ug)')
-    print('5. Back')
+    print('5. Pound (lb)')
+    print('6. Ounce (oz)')
+    print('7. Back')
     choice = input('Enter your choice: ')
     if choice == '1':
         base_unit = 'kg'
@@ -18,13 +20,21 @@ def mass_conversion():
     elif choice == '4':
         base_unit = 'ug'
     elif choice == '5':
+        base_unit = 'lb'
+    elif choice == '6':
+        base_unit = 'oz'
+    elif choice == '7':
         return
     else:
         print('Invalid choice')
         mass_conversion()
     while True:
         try:
-            value = float(input('Enter a value in ' + base_unit + ': '))
+            inp = input('Enter a value in ' + base_unit + ': ')
+            if '*10^' in inp:
+                value = float(inp.split('*10^')[0]) * 10 ** float(inp.split('*10^')[1])
+            else:
+                value = float(inp)
             break
         except ValueError:
             print('Invalid input')
@@ -34,7 +44,9 @@ def mass_conversion():
     print('2. Gram (g)')
     print('3. Milligram (mg)')
     print('4. Microgram (ug)')
-    print('5. Back')
+    print('5. Pound (lb)')
+    print('6. Ounce (oz)')
+    print('7. Back')
     choice = input('Enter your choice: ')
     if choice == '1':
         target_unit = 'kg'
@@ -45,47 +57,201 @@ def mass_conversion():
     elif choice == '4':
         target_unit = 'ug'
     elif choice == '5':
+        target_unit = 'lb'
+    elif choice == '6':
+        target_unit = 'oz'
+    elif choice == '7':
         mass_conversion()
     else:
         print('Invalid choice')
         mass_conversion()
 
-    #if base unit is not kg, convert to kg
-    if base_unit != 'kg':
-        if base_unit == 'g':
-            in_kg = value / 1000
-        elif base_unit == 'mg':
-            in_kg = value / 1000000
-        elif base_unit == 'ug':
-            in_kg = value / 1000000000
+    if base_unit == 'kg':
+        if target_unit == 'kg':
+            result = value
+        elif target_unit == 'g':
+            result = value * 1000
+        elif target_unit == 'mg':
+            result = value * 1000000
+        elif target_unit == 'ug':
+            result = value * 1000000000
+        elif target_unit == 'lb':
+            result = value * 2.20462
+        elif target_unit == 'oz':
+            result = value * 35.274
+    elif base_unit == 'g':
+        if target_unit == 'kg':
+            result = value / 1000
+        elif target_unit == 'g':
+            result = value
+        elif target_unit == 'mg':
+            result = value * 1000
+        elif target_unit == 'ug':
+            result = value * 1000000
+        elif target_unit == 'lb':
+            result = value / 453.592
+        elif target_unit == 'oz':
+            result = value / 28.3495
+    elif base_unit == 'mg':
+        if target_unit == 'kg':
+            result = value / 1000000
+        elif target_unit == 'g':
+            result = value / 1000
+        elif target_unit == 'mg':
+            result = value
+        elif target_unit == 'ug':
+            result = value * 1000
+        elif target_unit == 'lb':
+            result = value / 453592
+        elif target_unit == 'oz':
+            result = value / 28349.5
+    elif base_unit == 'ug':
+        if target_unit == 'kg':
+            result = value / 1000000000
+        elif target_unit == 'g':
+            result = value / 1000000
+        elif target_unit == 'mg':
+            result = value / 1000
+        elif target_unit == 'ug':
+            result = value
+        elif target_unit == 'lb':
+            result = value / 453592000
+        elif target_unit == 'oz':
+            result = value / 28349500
+    elif base_unit == 'lb':
+        if target_unit == 'kg':
+            result = value / 2.20462
+        elif target_unit == 'g':
+            result = value * 453.592
+        elif target_unit == 'mg':
+            result = value * 453592
+        elif target_unit == 'ug':
+            result = value * 453592000
+        elif target_unit == 'lb':
+            result = value
+        elif target_unit == 'oz':
+            result = value * 16
+    elif base_unit == 'oz':
+        if target_unit == 'kg':
+            result = value / 35.274
+        elif target_unit == 'g':
+            result = value * 28.3495
+        elif target_unit == 'mg':
+            result = value * 28349.5
+        elif target_unit == 'ug':
+            result = value * 28349500
+        elif target_unit == 'lb':
+            result = value / 16
+        elif target_unit == 'oz':
+            result = value
+
+    if len(str(value)) > 8:
+        print_dict_value = f'{value:.8e}'
     else:
-        in_kg = value
+        print_dict_value = value
 
-    print_dict = {
-        1: [f'{value} {base_unit}', '1 kg'],
-    }
-    if target_unit != 'kg':
+    if base_unit == target_unit:
+        print(f'{print_dict_value} {base_unit} = {result} {target_unit}')
+        input('Press enter to continue')
+        return
+    
+    print_dict = {}
+    if base_unit == 'kg':
         if target_unit == 'g':
-            print_dict[1] = [f'{value} {base_unit}', '1 kg', f'1000 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}', '1 kg']
-
-        if target_unit == 'mg':
-            print_dict[1] = [f'{value} {base_unit}', '1 kg', f'1000000 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000 {base_unit}', '1 kg']
-
-        if target_unit == 'ug':
-            print_dict[1] = [f'{value} {base_unit}', '1 kg', f'1000000000 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000000 {base_unit}', '1 kg']
-    if target_unit == 'kg':
-        if base_unit == 'g':
-            print_dict[1] = [f'{value} {base_unit}', '1 kg']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}']
-        if base_unit == 'mg':
-            print_dict[1] = [f'{value} {base_unit}', '1 kg']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000 {base_unit}']
-        if base_unit == 'ug':
-            print_dict[1] = [f'{value} {base_unit}', '1 kg']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000000 {base_unit}']
+            print_dict[1] = [f'{print_dict_value} kg', '1000 g']
+            print_dict[2] = ['', '1 kg']
+        elif target_unit == 'mg':
+            print_dict[1] = [f'{print_dict_value} kg', '1000000 mg']
+            print_dict[2] = ['', '1 kg']
+        elif target_unit == 'ug':
+            print_dict[1] = [f'{print_dict_value} kg', '1000000000 ug']
+            print_dict[2] = ['', '1 kg']
+        elif target_unit == 'lb':
+            print_dict[1] = [f'{print_dict_value} kg', '2.20462 lb']
+            print_dict[2] = ['', '1 kg']
+        elif target_unit == 'oz':
+            print_dict[1] = [f'{print_dict_value} kg', '35.274 oz']
+            print_dict[2] = ['', '1 kg']
+    elif base_unit == 'g':
+        if target_unit == 'kg':
+            print_dict[1] = [f'{print_dict_value} g', '1 kg']
+            print_dict[2] = ['', '1000 g']
+        elif target_unit == 'mg':
+            print_dict[1] = [f'{print_dict_value} g', '1000 mg']
+            print_dict[2] = ['', '1 g']
+        elif target_unit == 'ug':
+            print_dict[1] = [f'{print_dict_value} g', '1000000 ug']
+            print_dict[2] = ['', '1 g']
+        elif target_unit == 'lb':
+            print_dict[1] = [f'{print_dict_value} g', '0.00220462 lb']
+            print_dict[2] = ['', '1 g']
+        elif target_unit == 'oz':
+            print_dict[1] = [f'{print_dict_value} g', '0.035274 oz']
+            print_dict[2] = ['', '1 g']
+    elif base_unit == 'mg':
+        if target_unit == 'kg':
+            print_dict[1] = [f'{print_dict_value} mg', '1 kg']
+            print_dict[2] = ['', '1000000 mg']
+        elif target_unit == 'g':
+            print_dict[1] = [f'{print_dict_value} mg', '1 g']
+            print_dict[2] = ['', '1000 mg']
+        elif target_unit == 'ug':
+            print_dict[1] = [f'{print_dict_value} mg', '1000 ug']
+            print_dict[2] = ['', '1 mg']
+        elif target_unit == 'lb':
+            print_dict[1] = [f'{print_dict_value} mg', '0.00000220462 lb']
+            print_dict[2] = ['', '1 mg']
+        elif target_unit == 'oz':
+            print_dict[1] = [f'{print_dict_value} mg', '0.000035274 oz']
+            print_dict[2] = ['', '1 mg']
+    elif base_unit == 'ug':
+        if target_unit == 'kg':
+            print_dict[1] = [f'{print_dict_value} ug', '1 kg']
+            print_dict[2] = ['', '1000000000 ug']
+        elif target_unit == 'g':
+            print_dict[1] = [f'{print_dict_value} ug', '1 g']
+            print_dict[2] = ['', '1000000 ug']
+        elif target_unit == 'mg':
+            print_dict[1] = [f'{print_dict_value} ug', '1 mg']
+            print_dict[2] = ['', '1000 ug']
+        elif target_unit == 'lb':
+            print_dict[1] = [f'{print_dict_value} ug', '0.00000000220462 lb']
+            print_dict[2] = ['', '1 ug']
+        elif target_unit == 'oz':
+            print_dict[1] = [f'{print_dict_value} ug', '0.000000035274 oz']
+            print_dict[2] = ['', '1 ug']
+    elif base_unit == 'lb':
+        if target_unit == 'kg':
+            print_dict[1] = [f'{print_dict_value} lb', '1 kg']
+            print_dict[2] = ['', '2.20462 lb']
+        elif target_unit == 'g':
+            print_dict[1] = [f'{print_dict_value} lb', '453.592 g']
+            print_dict[2] = ['', '1 lb']
+        elif target_unit == 'mg':
+            print_dict[1] = [f'{print_dict_value} lb', '453592 mg']
+            print_dict[2] = ['', '1 lb']
+        elif target_unit == 'ug':
+            print_dict[1] = [f'{print_dict_value} lb', '453592000 ug']
+            print_dict[2] = ['', '1 lb']
+        elif target_unit == 'oz':
+            print_dict[1] = [f'{print_dict_value} lb', '16 oz']
+            print_dict[2] = ['', '1 lb']
+    elif base_unit == 'oz':
+        if target_unit == 'kg':
+            print_dict[1] = [f'{print_dict_value} oz', '1 kg']
+            print_dict[2] = ['', '35.274 oz']
+        elif target_unit == 'g':
+            print_dict[1] = [f'{print_dict_value} oz', '28.3495 g']
+            print_dict[2] = ['', '1 oz']
+        elif target_unit == 'mg':
+            print_dict[1] = [f'{print_dict_value} oz', '28349.5 mg']
+            print_dict[2] = ['', '1 oz']
+        elif target_unit == 'ug':
+            print_dict[1] = [f'{print_dict_value} oz', '28349500 ug']
+            print_dict[2] = ['', '1 oz']
+        elif target_unit == 'lb':
+            print_dict[1] = [f'{print_dict_value} oz', '1 lb']
+            print_dict[2] = ['', '16 oz']
 
     print("\033[H\033[J", end="")
     print('Table Setup:')
@@ -111,29 +277,11 @@ def mass_conversion():
         line = line.lstrip()+'|'
         print(line)
 
-    print('\n')
+    ans = result
+    print(f'\nFinal Answer: {str(ans)} {target_unit}')
+    print(f'Final Answer (sci notation): {ans:.6e} {target_unit}')
 
-    #print final conversion
-    print('Final Answer: ')
-    if target_unit == 'kg':
-        print(f'{in_kg} {target_unit}')
-    elif target_unit == 'g':
-        print(f'{in_kg * 1000} {target_unit}')
-    elif target_unit == 'mg':
-        print(f'{in_kg * 1000000} {target_unit}')
-    elif target_unit == 'ug':
-        print(f'{in_kg * 1000000000} {target_unit}')
-
-    #print final conversion in scientific notation
-    if target_unit == 'kg':
-        print(f'{in_kg:.6e} {target_unit}')
-    elif target_unit == 'g':
-        print(f'{in_kg * 1000:.6e} {target_unit}')
-    elif target_unit == 'mg':
-        print(f'{in_kg * 1000000:.6e} {target_unit}')
-    elif target_unit == 'ug':
-        print(f'{in_kg * 1000000000:.6e} {target_unit}')
-
-    print(f'Remember to adjust for sigfigs, your input was {value} {base_unit}')
+    print(f'Remember to adjust for sigfigs, your input was {inp} {base_unit}.')
     input('Press enter to continue...')
     return
+    

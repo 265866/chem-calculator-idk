@@ -27,7 +27,11 @@ def volume_conversion():
         volume_conversion()
     while True:
         try:
-            value = float(input('Enter a value in ' + base_unit + ': '))
+            inp = input('Enter a value in ' + base_unit + ': ')
+            if '*10^' in inp:
+                value = float(inp.split('*10^')[0]) * 10 ** float(inp.split('*10^')[1])
+            else:
+                value = float(inp)
             break
         except ValueError:
             print('Invalid input')
@@ -55,51 +59,139 @@ def volume_conversion():
     else:
         print('Invalid choice')
         volume_conversion()
-    #if base unit is not L, convert to L
-    if base_unit != 'L':
-        if base_unit == 'mL':
-            in_l = value / 1000
-        elif base_unit == 'uL':
-            in_l = value / 1000000
-        elif base_unit == 'cm^3':
-            in_l = value / 1000
-        elif base_unit == 'm^3':
-            in_l = value * 1000
+    
+    if base_unit == 'L':
+        if target_unit == 'L':
+            result = value
+        elif target_unit == 'mL':
+            result = value * 1000
+        elif target_unit == 'uL':
+            result = value * 1000000
+        elif target_unit == 'cm^3':
+            result = value * 1000
+        elif target_unit == 'm^3':
+            result = value / 1000
+    elif base_unit == 'mL':
+        if target_unit == 'L':
+            result = value / 1000
+        elif target_unit == 'mL':
+            result = value
+        elif target_unit == 'uL':
+            result = value * 1000
+        elif target_unit == 'cm^3':
+            result = value
+        elif target_unit == 'm^3':
+            result = value / 1000000
+    elif base_unit == 'uL':
+        if target_unit == 'L':
+            result = value / 1000000
+        elif target_unit == 'mL':
+            result = value / 1000
+        elif target_unit == 'uL':
+            result = value
+        elif target_unit == 'cm^3':
+            result = value / 1000
+        elif target_unit == 'm^3':
+            result = value / 1000000000
+    elif base_unit == 'cm^3':
+        if target_unit == 'L':
+            result = value / 1000
+        elif target_unit == 'mL':
+            result = value
+        elif target_unit == 'uL':
+            result = value * 1000
+        elif target_unit == 'cm^3':
+            result = value
+        elif target_unit == 'm^3':
+            result = value / 1000000
+    elif base_unit == 'm^3':
+        if target_unit == 'L':
+            result = value * 1000
+        elif target_unit == 'mL':
+            result = value * 1000000
+        elif target_unit == 'uL':
+            result = value * 1000000000
+        elif target_unit == 'cm^3':
+            result = value * 1000000
+        elif target_unit == 'm^3':
+            result = value
+
+    if len(str(value)) > 8:
+        print_dict_value = f'{value:.6e}'
     else:
-        in_l = value
+        print_dict_value = str(value)
 
-    print_dict = {
-        1: [f'{value} {base_unit}', '1 L'],
-    }
-    if target_unit != 'L':
-        if target_unit == 'mL':
-            print_dict[1] = [f'{value} {base_unit}', '1 L', f'1000 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}', '1 L']
+    if base_unit == target_unit:
+        print(f'{print_dict_value} {base_unit} = {result} {target_unit}')
+        input('Press enter to continue...')
+        return
 
-        if target_unit == 'uL':
-            print_dict[1] = [f'{value} {base_unit}', '1 L', f'1000000 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000 {base_unit}', '1 L']
-
-        if target_unit == 'cm^3':
-            print_dict[1] = [f'{value} {base_unit}', '1 L', f'1000 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}', '1 L']
-
+    print_dict = {}
+    if base_unit == 'L':
         if target_unit == 'm^3':
-            print_dict[1] = [f'{value} {base_unit}', '1 L', f'0.001 {target_unit}']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'0.001 {base_unit}', '1 L']
-    if target_unit == 'L':
-        if base_unit == 'mL':
-            print_dict[1] = [f'{value} {base_unit}', '1 L']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}']
-        if base_unit == 'uL':
-            print_dict[1] = [f'{value} {base_unit}', '1 L']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000000 {base_unit}']
-        if base_unit == 'cm^3':
-            print_dict[1] = [f'{value} {base_unit}', '1 L']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'1000 {base_unit}']
-        if base_unit == 'm^3':
-            print_dict[1] = [f'{value} {base_unit}', '1 L']
-            print_dict[2] = [' ' * len(f'{value} {base_unit}'), f'0.001 {base_unit}']
+            print_dict[1] = [f'{print_dict_value} L', '1 L']
+            print_dict[2] = ['', '1000 m^3']
+        if target_unit == 'cm^3':
+            print_dict[1] = [f'{print_dict_value} L', '1 L']
+            print_dict[2] = ['', '0.001 cm^3']
+        if target_unit == 'uL':
+            print_dict[1] = [f'{print_dict_value} L', '1 L']
+            print_dict[2] = ['', '1000000 uL']
+        if target_unit == 'mL':
+            print_dict[1] = [f'{print_dict_value} L', '1 L']
+            print_dict[2] = ['', '1000 mL']
+    elif base_unit == 'm^3':
+        if target_unit == 'L':
+            print_dict[1] = [f'{print_dict_value} m^3', '1 m^3']
+            print_dict[2] = ['', '0.001 L']
+        if target_unit == 'cm^3':
+            print_dict[1] = [f'{print_dict_value} m^3', '1 m^3']
+            print_dict[2] = ['', '1000000 cm^3']
+        if target_unit == 'uL':
+            print_dict[1] = [f'{print_dict_value} m^3', '1 m^3']
+            print_dict[2] = ['', '1000000000000 uL']
+        if target_unit == 'mL':
+            print_dict[1] = [f'{print_dict_value} m^3', '1 m^3']
+            print_dict[2] = ['', '1000000 mL']
+    elif base_unit == 'cm^3':
+        if target_unit == 'L':
+            print_dict[1] = [f'{print_dict_value} cm^3', '1 cm^3']
+            print_dict[2] = ['', '0.001 L']
+        if target_unit == 'm^3':
+            print_dict[1] = [f'{print_dict_value} cm^3', '1 cm^3']
+            print_dict[2] = ['', '0.000001 m^3']
+        if target_unit == 'uL':
+            print_dict[1] = [f'{print_dict_value} cm^3', '1 cm^3']
+            print_dict[2] = ['', '1000 uL']
+        if target_unit == 'mL':
+            print_dict[1] = [f'{print_dict_value} cm^3', '1 cm^3']
+            print_dict[2] = ['', '1 mL']
+    elif base_unit == 'uL':
+        if target_unit == 'L':
+            print_dict[1] = [f'{print_dict_value} uL', '1 uL']
+            print_dict[2] = ['', '0.000001 L']
+        if target_unit == 'm^3':
+            print_dict[1] = [f'{print_dict_value} uL', '1 uL']
+            print_dict[2] = ['', '0.000000000001 m^3']
+        if target_unit == 'cm^3':
+            print_dict[1] = [f'{print_dict_value} uL', '1 uL']
+            print_dict[2] = ['', '0.001 cm^3']
+        if target_unit == 'mL':
+            print_dict[1] = [f'{print_dict_value} uL', '1 uL']
+            print_dict[2] = ['', '0.001 mL']
+    elif base_unit == 'mL':
+        if target_unit == 'L':
+            print_dict[1] = [f'{print_dict_value} mL', '1 mL']
+            print_dict[2] = ['', '0.001 L']
+        if target_unit == 'm^3':
+            print_dict[1] = [f'{print_dict_value} mL', '1 mL']
+            print_dict[2] = ['', '0.000001 m^3']
+        if target_unit == 'cm^3':
+            print_dict[1] = [f'{print_dict_value} mL', '1 mL']
+            print_dict[2] = ['', '1 cm^3']
+        if target_unit == 'uL':
+            print_dict[1] = [f'{print_dict_value} mL', '1 mL']
+            print_dict[2] = ['', '1000 uL']
 
     print("\033[H\033[J", end="")
     print('Table Setup:')
@@ -124,32 +216,11 @@ def volume_conversion():
             line += '| '+ temp_variable+' '
         line = line.lstrip()+'|'
         print(line)
-    print('\n')
-    #print final conversion
-    print('Final Answer:')
-    if target_unit == 'L':
-        print(f'{in_l} {target_unit}')
-    elif target_unit == 'mL':
-        print(f'{in_l * 1000} {target_unit}')
-    elif target_unit == 'uL':
-        print(f'{in_l * 1000000} {target_unit}')
-    elif target_unit == 'cm^3':
-        print(f'{in_l * 1000} {target_unit}')
-    elif target_unit == 'm^3':
-        print(f'{in_l / 1000} {target_unit}')
-    #print final conversion in scientific notation
-    if target_unit == 'L':
-        print(f'{in_l:.6e} {target_unit}')
-    elif target_unit == 'mL':
-        print(f'{in_l * 1000:.6e} {target_unit}')
-    elif target_unit == 'uL':
-        print(f'{in_l * 1000000:.6e} {target_unit}')
-    elif target_unit == 'cm^3':
-        print(f'{in_l * 1000:.6e} {target_unit}')
-    elif target_unit == 'm^3':
-        print(f'{in_l / 1000:.6e} {target_unit}')
-    print('\n')
 
-    print(f'Remember to adjust for sigfigs, your input was {value} {base_unit}')
+    ans = result
+    print(f'\nFinal Answer: {str(ans)} {target_unit}')
+    print(f'Final Answer (sci notation): {ans:.6e} {target_unit}')
+
+    print(f'Remember to adjust for sigfigs, your input was {inp} {base_unit}.')
     input('Press enter to continue...')
     return
