@@ -1,4 +1,5 @@
 """Imports"""
+from secrets import choice
 from modules.standard_conversions.length_conversion import length_conversion
 from modules.standard_conversions.mass_conversion import mass_conversion
 from modules.standard_conversions.volume_conversion import volume_conversion
@@ -9,8 +10,7 @@ from modules.mole_conversions.moles_to_particles import moles_to_particles
 from modules.mole_conversions.particles_to_moles import particles_to_moles
 from modules.mole_conversions.particles_to_grams import particles_to_grams
 from modules.mole_conversions.grams_to_particles import grams_to_particles
-from modules.return_sigfigs import find_sigfigs as get_sigfigs
-from modules.compounds_to_elements import compounds_to_elements as cte
+from modules.atomic_structure.protons_to_element import protons_to_element
 
 def main():
     """Main Function"""
@@ -18,13 +18,16 @@ def main():
     print('Select an option: ')
     print('1. Unit Conversions')
     print('2. Mole Conversions')
-    print('3. Exit')
+    print('3. Atomic Structure')
+    print('4. Exit')
     choice = input('Enter your choice: ')
     if choice == '1':
         unit_conversion()
     elif choice == '2':
         mole_conversion()
     elif choice == '3':
+        atomic_structure()
+    elif choice == '4':
         exit()
     else:
         print('Invalid choice')
@@ -93,6 +96,30 @@ def mole_conversion():
     else:
         print('Invalid choice')
         mole_conversion()
+
+def atomic_structure():
+    """Atomic Structure Function"""
+    print("\033[H\033[J", end="")
+    print('Select an option: ')
+    print('1. Protons to Element')
+    print('2. Protons, Neutrons to Element')
+    print('3. Isotope to Element Info')
+    print('4. Back')
+    choice = input('Enter your choice: ')
+    if choice == '1':
+        protons_to_element()
+        main()
+    elif choice == '2':
+        protons_neutrons_to_element()
+        main()
+    elif choice == '3':
+        isotope_to_element_info()
+        main()
+    elif choice == '4':
+        main()
+    else:
+        print('Invalid choice')
+        atomic_structure()
 
 if __name__ == '__main__':
     main()
